@@ -1,0 +1,1713 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hexon Robotics | Precise Automation</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <style>
+        /* ===================== CSS VARIABLES ===================== */
+        :root {
+            --orange: #F05A1A;
+            --orange-deep: #C94400;
+            --orange-glow: rgba(240, 90, 26, 0.25);
+            --bg-black: #0D0D0D;
+            --bg-dark: #252525;
+            --bg-section: #1A1A1A;
+            --bg-card: #2B2B2B;
+            --text-white: #F0EDE8;
+            --text-grey: #A0A0A0;
+            --border-subtle: #2B2B2B;
+            --radius: 4px;
+        }
+
+        /* ===================== RESET & BASE ===================== */
+        *, *::before, *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        html { scroll-behavior: smooth; }
+
+        body {
+            font-family: 'DM Sans', sans-serif;
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            line-height: 1.6;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.1;
+        }
+
+        a { text-decoration: none; color: inherit; }
+        img { max-width: 100%; display: block; }
+
+        /* ===================== UTILITIES ===================== */
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        .text-center { text-align: center; }
+        .text-orange { color: var(--orange); }
+        .text-grey { color: var(--text-grey); }
+
+        .section-padding { padding: 100px 0; }
+
+        .label {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            color: var(--orange);
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            display: block;
+            margin-bottom: 16px;
+        }
+
+        /* ===================== HEX PATTERN BG ===================== */
+        .bg-hex {
+            background-color: var(--bg-dark);
+            background-image: url("data:image/svg+xml,%3Csvg width='52' height='60' viewBox='0 0 52 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M26 0l26 15v30L26 60 0 45V15L26 0z' fill='%23252525' fill-rule='evenodd' stroke='%23F05A1A' stroke-width='2' fill-opacity='0.09' stroke-opacity='0.09'/%3E%3C/svg%3E");
+        }
+
+        /* ===================== SCROLL ANIMATIONS ===================== */
+        .fade-up {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+        .fade-up.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ===================== NAVBAR ===================== */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 108px;
+            display: flex;
+            align-items: center;
+            z-index: 1000;
+            transition: all 0.3s ease;
+            background: transparent;
+            border-bottom: 2px solid transparent;
+        }
+
+        .navbar.scrolled {
+            background: rgba(13, 13, 13, 0.96);
+            backdrop-filter: blur(10px);
+            border-bottom: 2px solid var(--orange);
+            height: 80px;
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+        }
+
+        /* Logo */
+        .brand-logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: auto;
+            display: block;
+            transition: height 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .navbar.scrolled .logo-img {
+            height: 44px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+            align-items: center;
+        }
+
+        .nav-link {
+            font-family: 'DM Sans', sans-serif;
+            font-size: 18px;
+            color: var(--text-white);
+            position: relative;
+            padding-bottom: 4px;
+            transition: color 0.3s;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: var(--orange);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover,
+        .nav-link.active { color: var(--orange); }
+
+        .nav-link:hover::after,
+        .nav-link.active::after { width: 100%; }
+
+        .hamburger {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-white);
+            font-size: 24px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            background: #1A1A1A;
+            z-index: 999;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 32px;
+            transform: translateY(-100%);
+            transition: transform 0.4s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+
+        .mobile-menu-overlay.open { transform: translateY(0); }
+
+        .mobile-menu-overlay .nav-link {
+            font-size: 28px;
+            font-family: 'Barlow Condensed', sans-serif;
+            text-transform: uppercase;
+        }
+
+        /* ===================== HERO ===================== */
+        .hero {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            padding-top: 96px;
+        }
+
+        .hero-content {
+            max-width: 600px;
+            text-align: center;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: clamp(60px, 8vw, 96px);
+            color: var(--text-white);
+            margin-bottom: 24px;
+        }
+
+        .hero h1 span {
+            display: block;
+            color: var(--orange);
+        }
+
+        .hero p {
+            font-size: 18px;
+            color: var(--text-grey);
+            max-width: 480px;
+            margin: 0 auto 40px auto;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 20px;
+            justify-content: center;
+            width: 100%;
+        }
+
+        .btn {
+            flex: 1;
+            max-width: 220px;
+            padding: 16px 24px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-align: center;
+            border-radius: var(--radius);
+            transition: all 0.3s ease;
+            cursor: pointer;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: var(--orange);
+            color: var(--text-white);
+            border: 2px solid var(--orange);
+        }
+
+        .btn-primary:hover {
+            box-shadow: 0 0 30px var(--orange-glow);
+            background: var(--orange-deep);
+            border-color: var(--orange-deep);
+        }
+
+        .btn-outline {
+            background: var(--bg-dark);
+            color: var(--orange);
+            border: 2px solid var(--orange);
+        }
+
+        .btn-outline:hover {
+            background: var(--orange);
+            color: var(--text-white);
+            box-shadow: 0 0 30px var(--orange-glow);
+        }
+
+        /* ===================== VALUE BAND ===================== */
+        .value-band {
+            background: var(--orange);
+            height: 180px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 24px;
+        }
+
+        .value-band h2 {
+            font-size: clamp(28px, 4vw, 40px);
+            color: var(--text-white);
+            margin-bottom: 8px;
+        }
+
+        .value-band p {
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.8);
+            max-width: 800px;
+        }
+
+        /* ===================== SERVICES OVERVIEW ===================== */
+        .services-overview {
+            background: var(--bg-section);
+        }
+
+        .services-overview h2 {
+            font-size: clamp(40px, 5vw, 56px);
+            margin-bottom: 48px;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            margin-bottom: 48px;
+        }
+
+        .service-card {
+            background: var(--bg-card);
+            border-left: 3px solid var(--orange);
+            padding: 30px 20px;
+            border-radius: 0 var(--radius) var(--radius) 0;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 10px 30px var(--orange-glow);
+        }
+
+        /* Square image placeholder for service cards */
+        .service-card-img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            background: var(--bg-dark);
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: var(--text-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .service-card h3 {
+            font-size: 22px;
+            margin-bottom: 12px;
+        }
+
+        .service-card p {
+            font-size: 16px;
+            color: var(--text-grey);
+        }
+
+        .view-all-link {
+            display: inline-block;
+            color: var(--orange);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 18px;
+            font-weight: 500;
+            position: relative;
+        }
+
+        .view-all-link::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: var(--orange);
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.3s ease;
+        }
+
+        .view-all-link:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+
+        /* ===================== ACTION SHOWCASE ===================== */
+        .action-showcase { background: var(--bg-black); }
+
+        .action-showcase h2 {
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 48px;
+        }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+        }
+
+        .action-col { position: relative; }
+
+        /* Plain placeholder frame — no animation */
+        .media-frame {
+            width: 100%;
+            height: 260px;
+            background: var(--bg-dark);
+            border: 1px dashed var(--border-subtle);
+            border-bottom: 3px solid var(--orange);
+            border-radius: var(--radius) var(--radius) 0 0;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: var(--text-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .action-col h3 {
+            font-size: 22px;
+            margin-bottom: 8px;
+        }
+
+        .action-col p {
+            font-size: 16px;
+            color: var(--text-grey);
+        }
+
+        /* ===================== INDUSTRIES MARQUEE ===================== */
+        #industries {
+            background: var(--bg-black);
+            padding: 40px 0;
+            overflow: hidden;
+        }
+
+        #industries .label {
+            color: var(--orange);
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 24px;
+        }
+
+        .marquee-wrapper {
+            display: flex;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        .marquee-content {
+            display: flex;
+            white-space: nowrap;
+            animation: scroll-left 30s linear infinite;
+        }
+
+        .marquee-pill {
+            border: 2px solid var(--orange);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            padding: 10px 22px;
+            margin: 0 12px;
+            border-radius: var(--radius);
+            display: inline-block;
+        }
+
+        @keyframes scroll-left {
+            0%   { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+
+        /* ===================== ABOUT HERO ===================== */
+        .about-hero {
+            background: var(--bg-black);
+            position: relative;
+            overflow: hidden;
+            padding-top: 100px;
+            padding-bottom: 100px;
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: stretch;
+        }
+
+        /* Image column — left */
+        .about-visual {
+            order: -1;
+        }
+
+        .about-visual img,
+        .about-visual .media-frame-tall {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        /* Text column — right */
+        .about-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .about-content h2 {
+            font-size: clamp(40px, 6vw, 64px);
+            margin-bottom: 24px;
+            max-width: 640px;
+        }
+
+        .about-content p {
+            font-size: 18px;
+            color: var(--text-grey);
+        }
+
+        /* Tall placeholder for about visual */
+        .media-frame-tall {
+            width: 100%;
+            height: 100%;
+            min-height: 300px;
+            background: var(--bg-dark);
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: var(--text-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* ===================== WHY CHOOSE ===================== */
+        .why-choose { background: var(--bg-dark); }
+
+        .why-choose h2 {
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 60px;
+        }
+
+        .reasons-list {
+            display: flex;
+            flex-direction: column;
+            gap: 40px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .reason-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 30px;
+        }
+
+        .reason-number {
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 100px;
+            line-height: 0.8;
+            color: var(--orange);
+            opacity: 0.9;
+            min-width: 100px;
+            text-align: center;
+        }
+
+        .reason-text { padding-top: 10px; }
+
+        .reason-text h3 {
+            font-size: 26px;
+            margin-bottom: 12px;
+        }
+
+        .reason-text p {
+            font-size: 18px;
+            color: var(--text-grey);
+        }
+
+        /* ===================== SPECIALITIES ===================== */
+        .specialities {
+            background: var(--orange);
+            padding: 60px 0;
+        }
+
+        .specialities-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 30px;
+            text-align: center;
+        }
+
+        .speciality-item i {
+            font-size: 28px;
+            color: var(--text-white);
+            margin-bottom: 16px;
+        }
+
+        .speciality-item h3 {
+            font-size: 20px;
+            color: var(--text-white);
+            margin-bottom: 8px;
+        }
+
+        .speciality-item p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.8);
+        }
+
+        /* ===================== PROCESS TIMELINE ===================== */
+        .process { background: var(--bg-black); }
+
+        .process h2 {
+            font-size: clamp(36px, 5vw, 52px);
+            margin-bottom: 60px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            position: relative;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 24px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: repeating-linear-gradient(to right, var(--orange), var(--orange) 10px, transparent 10px, transparent 20px);
+            z-index: 0;
+        }
+
+        .timeline-step {
+            flex: 1;
+            position: relative;
+            z-index: 1;
+            padding: 0 15px;
+            text-align: center;
+        }
+
+        .step-circle {
+            width: 48px;
+            height: 48px;
+            background: var(--orange);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 20px;
+            font-weight: 700;
+            margin: 0 auto 20px auto;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-step:hover .step-circle {
+            transform: scale(1.1);
+            animation: pulse-ring 1.5s infinite;
+        }
+
+        @keyframes pulse-ring {
+            0%   { box-shadow: 0 0 0 0 rgba(240, 90, 26, 0.7); }
+            70%  { box-shadow: 0 0 0 15px rgba(240, 90, 26, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(240, 90, 26, 0); }
+        }
+
+        .timeline-step h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+
+        .timeline-step p {
+            font-size: 13px;
+            color: var(--text-grey);
+        }
+
+        /* ===================== SERVICES DETAIL ===================== */
+        .services-detail-hero {
+            background: var(--bg-section);
+            text-align: center;
+            padding-top: 140px;
+            padding-bottom: 60px;
+        }
+
+        .services-detail-hero h1 {
+            font-size: clamp(48px, 6vw, 72px);
+            margin-bottom: 16px;
+        }
+
+        .services-detail-hero p {
+            font-size: 18px;
+            color: var(--text-grey);
+        }
+
+        .service-block { padding: 100px 0; }
+
+        .service-block:nth-child(odd)  { background: var(--bg-section); }
+        .service-block:nth-child(even) { background: var(--bg-dark); }
+
+        .service-block-inner {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+
+        /* Alternating layout — even blocks flip */
+        .service-block:nth-child(even) .service-block-inner { direction: rtl; }
+        .service-block:nth-child(even) .service-block-inner > * { direction: ltr; }
+
+        /* Right-align text when image is on the right (even blocks) */
+        .service-block:nth-child(even) .service-text { text-align: right; }
+        .service-block:nth-child(even) .service-benefits li {
+            flex-direction: row-reverse;
+        }
+
+        /* Orange corner bracket accent */
+        .service-visual {
+            position: relative;
+            padding: 20px;
+        }
+
+        .service-visual::before,
+        .service-visual::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 40px;
+            border: 2px solid var(--orange);
+            pointer-events: none;
+        }
+
+        .service-visual::before {
+            top: 0; left: 0;
+            border-right: none;
+            border-bottom: none;
+        }
+
+        .service-visual::after {
+            bottom: 0; right: 0;
+            border-left: none;
+            border-top: none;
+        }
+
+        /* Service detail placeholder frames */
+        .service-media-frame {
+            width: 100%;
+            height: auto;
+            background: var(--bg-black);
+            /* border: 3px solid #000;
+            border-radius: var(--radius); */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: var(--text-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .service-text h2 {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .service-text p {
+            font-size: 18px;
+            color: var(--text-grey);
+            margin-bottom: 24px;
+        }
+
+        .service-benefits {
+            list-style: none;
+            margin-bottom: 30px;
+        }
+
+        .service-benefits li {
+            font-size: 16px;
+            color: var(--text-white);
+            margin-bottom: 12px;
+            display: flex;
+            align-items: flex-start;
+            gap: 12px;
+        }
+
+        .service-benefits li::before {
+            content: '';
+            display: inline-block;
+            width: 12px;
+            height: 2px;
+            background: var(--orange);
+            margin-top: 10px;
+            flex-shrink: 0;
+        }
+
+        .service-link {
+            display: inline-block;
+            color: var(--orange);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 16px;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .service-link:hover {
+            color: var(--text-white);
+            text-shadow: 0 0 10px var(--orange-glow);
+        }
+
+        /* ===================== CONTACT ===================== */
+        .contact-section {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        .contact-left {
+            width: 40%;
+            background: var(--orange);
+            padding: 100px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-left h2 {
+            font-size: clamp(36px, 4vw, 52px);
+            margin-bottom: 16px;
+        }
+
+        .contact-left p {
+            font-size: 16px;
+            color: rgba(255, 255, 255, 0.85);
+            margin-bottom: 40px;
+        }
+
+        .contact-details {
+            list-style: none;
+            margin-bottom: 40px;
+        }
+
+        .contact-details li {
+            font-size: 16px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+        }
+
+        .contact-socials { display: flex; gap: 20px; }
+
+        .contact-socials a {
+            color: var(--text-white);
+            font-size: 20px;
+            transition: color 0.3s;
+        }
+
+        .contact-socials a:hover { color: var(--orange-deep); }
+
+        .contact-right {
+            width: 60%;
+            background: var(--bg-section);
+            padding: 100px 60px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .contact-right h3 {
+            font-size: 32px;
+            margin-bottom: 30px;
+        }
+
+        .form-group { margin-bottom: 16px; }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            color: var(--text-grey);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+        }
+
+        .form-control {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border-subtle);
+            color: var(--text-white);
+            font-family: 'DM Sans', sans-serif;
+            font-size: 15px;
+            padding: 14px 16px;
+            border-radius: var(--radius);
+            transition: border-color 0.2s ease;
+            outline: none;
+        }
+
+        .form-control:focus { border-color: var(--orange); }
+
+        .form-row { display: flex; gap: 16px; }
+        .form-row .form-group { flex: 1; }
+
+        .btn-submit {
+            width: 100%;
+            background: var(--orange);
+            color: var(--text-white);
+            border: none;
+            padding: 16px;
+            font-family: 'Barlow Condensed', sans-serif;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background: var(--orange-deep);
+            box-shadow: 0 0 20px var(--orange-glow);
+        }
+
+        .form-message {
+            display: none;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .form-message.success { display: block; }
+
+        .form-message i {
+            font-size: 60px;
+            color: var(--orange);
+            margin-bottom: 20px;
+        }
+
+        .form-message h4 {
+            font-size: 40px;
+            margin-bottom: 10px;
+        }
+
+        .form-message p {
+            font-size: 16px;
+            color: var(--text-grey);
+        }
+
+        .error-banner {
+            display: none;
+            background: rgba(240, 90, 26, 0.1);
+            border-left: 3px solid var(--orange);
+            color: var(--orange);
+            padding: 16px;
+            margin-top: 20px;
+            font-size: 15px;
+        }
+
+        /* ===================== FOOTER ===================== */
+        .footer {
+            background: #080808;
+            border-top: 1px solid var(--border-subtle);
+            padding: 60px 0 0 0;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1.5fr;
+            gap: 40px;
+            margin-bottom: 40px;
+        }
+
+        .footer-col p {
+            font-size: 16px;
+            color: var(--text-grey);
+            margin-top: 16px;
+        }
+
+        .footer-col h4 {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        .footer-logo-placeholder {
+            width: 52px;
+            height: 40px;
+            background: var(--bg-card);
+            border: 1px dashed var(--border-subtle);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'DM Sans', sans-serif;
+            font-size: 11px;
+            color: var(--text-grey);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .footer-links { list-style: none; }
+
+        .footer-links li { margin-bottom: 12px; }
+
+        .footer-links a {
+            font-size: 16px;
+            color: var(--text-grey);
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover { color: var(--orange); }
+
+        .footer-bottom-line {
+            width: 100%;
+            height: 2px;
+            background: var(--orange);
+        }
+
+        /* ===================== RESPONSIVE ===================== */
+        @media (max-width: 1024px) {
+            .services-grid      { grid-template-columns: repeat(2, 1fr); }
+            .action-grid        { grid-template-columns: repeat(2, 1fr); }
+            .specialities-grid  { grid-template-columns: repeat(2, 1fr); }
+            .contact-section    { flex-direction: column; }
+            .contact-left,
+            .contact-right      { width: 100%; padding: 60px 24px; }
+            .footer-grid        { grid-template-columns: 1fr 1fr; }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links  { display: none; }
+            .hamburger  { display: block; }
+
+            .hero-buttons       { flex-direction: column; align-items: center; }
+            .btn                { width: 100%; max-width: 100%; }
+
+            .services-grid      { grid-template-columns: 1fr; }
+            .action-grid        { grid-template-columns: 1fr; }
+            .about-grid         { grid-template-columns: 1fr; }
+            .about-visual       { order: 0; min-height: 260px; }
+
+            .timeline           { flex-direction: column; padding-left: 24px; border-left: 2px dashed var(--orange); gap: 40px; }
+            .timeline::before   { display: none; }
+            .timeline-step      { text-align: left; display: flex; flex-direction: column; align-items: flex-start; }
+            .step-circle        { margin: 0 0 16px 0; position: absolute; left: -24px; transform: translateX(-50%); }
+
+            .service-block-inner                                    { grid-template-columns: 1fr; gap: 40px; }
+            .service-block:nth-child(even) .service-block-inner    { direction: ltr; }
+
+            .form-row { flex-direction: column; gap: 0; }
+        }
+
+        @media (max-width: 375px) {
+            .hero h1            { font-size: 48px; }
+            .specialities-grid  { grid-template-columns: 1fr; }
+            .footer-grid        { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ==================== NAVBAR ==================== -->
+    <nav class="navbar" id="navbar">
+        <div class="container nav-container">
+            <a href="#home" class="brand-logo">
+                <img src="images/logo.png" alt="Hexon Robotics" class="logo-img">
+            </a>
+            <div class="nav-links">
+                <a href="#home"    class="nav-link active">Home</a>
+                <a href="#about"   class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#contact" class="nav-link">Contact</a>
+            </div>
+            <button class="hamburger" id="hamburger">
+                <i class="fa-solid fa-bars"></i>
+            </button>
+        </div>
+    </nav>
+
+    <!-- Mobile overlay -->
+    <div class="mobile-menu-overlay" id="mobile-menu">
+        <a href="#home"     class="nav-link mobile-link">Home</a>
+        <a href="#about"    class="nav-link mobile-link">About</a>
+        <a href="#services" class="nav-link mobile-link">Services</a>
+        <a href="#contact"  class="nav-link mobile-link">Contact</a>
+    </div>
+
+    <!-- ==================== HERO ==================== -->
+    <section id="home" class="hero bg-hex">
+        <div class="container hero-content fade-up">
+            <h1>AUTOMATE YOUR <span>FUTURE</span></h1>
+            <p>Turnkey robotic automation systems built for precision, speed, and scale.</p>
+            <div class="hero-buttons">
+                <a href="#services" class="btn btn-primary">Explore Services</a>
+                <a href="#contact"  class="btn btn-outline">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== VALUE BAND ==================== -->
+    <section class="value-band fade-up">
+        <h2>END-TO-END AUTOMATION SOLUTIONS</h2>
+        <p>From concept to commissioning — Hexon delivers robotic systems that transform manufacturing floors.</p>
+    </section>
+
+    <!-- ==================== SERVICES OVERVIEW ==================== -->
+    <section class="services-overview section-padding" id="services-overview">
+        <div class="container text-center">
+            <span class="label fade-up">WHAT WE OFFER</span>
+            <h2 class="fade-up">Our Core Services</h2>
+
+            <div class="services-grid">
+                <div class="service-card fade-up" style="transition-delay:0.1s;">
+                    <div class="service-card-img">
+                        <img src="images/palletizing-robot.jpeg" alt="palletizing-robot">
+                    </div>
+                    <h3>Robotic Palletizing</h3>
+                    <p>Automated stacking and pallet building for high-throughput warehousing and production lines.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.2s;">
+                    <div class="service-card-img">
+                        <img src="images/welding-robot.png" alt="welding-robot">
+                    </div>
+                    <h3>Robotic Welding</h3>
+                    <p>Precision arc and spot welding robots for consistent, high-speed, zero-defect fabrication.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.3s;">
+                    <div class="service-card-img">
+                        <img src="images/painting-robot.png" alt="painting-robot">
+                    </div>
+                    <h3>Robotic Painting</h3>
+                    <p>Precise spray applications for consistent, high-quality coatings in automotive and industrial use.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.4s;">
+                    <div class="service-card-img">
+                        <img src="images/inspection-robot.png" alt="inspection-robot">
+                    </div>
+                    <h3>Robotic Inspection</h3>
+                    <p>Vision-guided quality inspection systems for real-time defect detection and measurement.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.5s;">
+                    <div class="service-card-img">
+                        <img src="images/pick-place.png" alt="pick-and-place">
+                    </div>
+                    <h3>Pick &amp; Place</h3>
+                    <p>High-speed pick and place robots for assembly, sorting, and packaging applications.</p>
+                </div>
+                <div class="service-card fade-up" style="transition-delay:0.6s;">
+                    <div class="service-card-img">
+                        <img src="images/machine-tending.png" alt="machine-tending">
+                    </div>
+                    <h3>Machine Tending</h3>
+                    <p>Robotic loading/unloading for CNC, press, and injection moulding machines — zero idle time.</p>
+                </div>
+            </div>
+
+            <a href="#services" class="view-all-link fade-up">View All Services &rarr;</a>
+        </div>
+    </section>
+
+    <!-- ==================== ABOUT HERO ==================== -->
+    <section id="about" class="about-hero">
+        <div class="container about-grid">
+            <div class="about-visual fade-up">
+                <div class="media-frame-tall">
+                    <img src="images/backbone-mfg.png" alt="backbone-mfg">
+                </div>
+            </div>
+            <div class="about-content fade-up">
+                <span class="label">WHO WE ARE</span>
+                <h2>Building the Backbone of Modern Manufacturing</h2>
+                <p>Founded with a singular mission — to bring world-class robotic automation within reach of Indian manufacturers. Hexon Robotics engineers, integrates, and commissions automation systems that cut costs, eliminate errors, and scale effortlessly.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== WHY CHOOSE ==================== -->
+    <section class="why-choose section-padding">
+        <div class="container">
+            <h2 class="text-center fade-up">Why Choose Hexon</h2>
+            <div class="reasons-list">
+                <div class="reason-item fade-up">
+                    <div class="reason-number">01</div>
+                    <div class="reason-text">
+                        <h3>Engineering-First Approach</h3>
+                        <p>Custom-engineered around your unique workflow, ensuring every system is optimized for your process, not a generic template.</p>
+                    </div>
+                </div>
+                <div class="reason-item fade-up">
+                    <div class="reason-number">02</div>
+                    <div class="reason-text">
+                        <h3>Agnostic Integration</h3>
+                        <p>Complete flexibility across all major OEMs—ABB, FANUC, KUKA—or custom 6-DOF builds tailored to your requirements.</p>
+                    </div>
+                </div>
+                <div class="reason-item fade-up">
+                    <div class="reason-number">03</div>
+                    <div class="reason-text">
+                        <h3>Rapid Commissioning</h3>
+                        <p>Lean team, zero bureaucracy. Faster concept-to-deployment than any large integrator.</p>
+                    </div>
+                </div>
+                <div class="reason-item fade-up">
+                    <div class="reason-number">04</div>
+                    <div class="reason-text">
+                        <h3>ROI-First Mindset</h3>
+                        <p>We don't just build; we justify. Every project starts with a rigorous ROI projection to ensure the numbers work before we do.</p>
+                    </div>
+                </div>
+                <div class="reason-item fade-up">
+                    <div class="reason-number">05</div>
+                    <div class="reason-text">
+                        <h3>Built for India</h3>
+                        <p>Solutions crafted specifically for Indian manufacturing conditions, accounting for power fluctuations, space limitations, and cost sensitivity.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SPECIALITIES ==================== -->
+    <section class="specialities">
+        <div class="container">
+            <div class="specialities-grid">
+                <div class="speciality-item fade-up">
+                    <i class="fa-solid fa-microchip"></i>
+                    <h3>Advanced Robotics Integration</h3>
+                    <p>Designing and integrating cutting-edge 6-DOF and collaborative robotic systems.</p>
+                </div>
+                <div class="speciality-item fade-up" style="transition-delay:0.1s;">
+                    <i class="fa-solid fa-diagram-project"></i>
+                    <h3>End-to-End Engineering</h3>
+                    <p>Concept, simulation, installation, and operator training — all under one roof.</p>
+                </div>
+                <div class="speciality-item fade-up" style="transition-delay:0.2s;">
+                    <i class="fa-solid fa-shield-halved"></i>
+                    <h3>Safety &amp; Compliance</h3>
+                    <p>ISO 10218-aligned designs with full risk assessment and safe-guarded cell architecture.</p>
+                </div>
+                <div class="speciality-item fade-up" style="transition-delay:0.3s;">
+                    <i class="fa-solid fa-headset"></i>
+                    <h3>24/7 AMC Support</h3>
+                    <p>Dedicated after-sales team and remote monitoring for zero unplanned downtime.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== PROCESS ==================== -->
+    <section class="process section-padding">
+        <div class="container">
+            <h2 class="text-center fade-up">How We Work</h2>
+            <div class="timeline">
+                <div class="timeline-step fade-up">
+                    <div class="step-circle">1</div>
+                    <h3>Consultation &amp; Analysis</h3>
+                    <p>We audit your process, understand your constraints, and define the automation scope.</p>
+                </div>
+                <div class="timeline-step fade-up" style="transition-delay:0.1s;">
+                    <div class="step-circle">2</div>
+                    <h3>System Design &amp; Simulation</h3>
+                    <p>3D layout, robot selection, cycle time simulation, and ROI modelling.</p>
+                </div>
+                <div class="timeline-step fade-up" style="transition-delay:0.2s;">
+                    <div class="step-circle">3</div>
+                    <h3>Fabrication &amp; Integration</h3>
+                    <p>Cell fabrication, robot programming, and end-of-arm tooling development.</p>
+                </div>
+                <div class="timeline-step fade-up" style="transition-delay:0.3s;">
+                    <div class="step-circle">4</div>
+                    <h3>Installation &amp; Commissioning</h3>
+                    <p>On-site installation, safety validation, and production trials.</p>
+                </div>
+                <div class="timeline-step fade-up" style="transition-delay:0.4s;">
+                    <div class="step-circle">5</div>
+                    <h3>Training &amp; AMC Support</h3>
+                    <p>Full operator training and ongoing annual maintenance contract.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== SERVICES DETAIL HERO ==================== -->
+    <section id="services" class="services-detail-hero">
+        <div class="container fade-up">
+            <span class="label">SEE IT IN ACTION</span>
+            <h1>Automation Solutions That Deliver Results</h1>
+            <p>We engineer robotic systems for every need in your production line.</p>
+        </div>
+    </section>
+
+    <!-- Service 01 — Robotic Palletizing -->
+    <section class="service-block">
+        <div class="container service-block-inner">
+            <div class="service-visual fade-up">
+                <div class="service-media-frame">
+                    <img src="images/palletizing-gif.gif">
+                </div>
+            </div>
+            <div class="service-text fade-up">
+                <h2>Robotic Palletizing</h2>
+                <p>Hexon's palletizing systems handle high-speed stacking, layer formation, and mixed-SKU palletizing with consistent accuracy. Designed for food, pharma, and FMCG lines, these systems integrate with existing conveyors and ensure stable, damage-free stacking.</p>
+                <ul class="service-benefits">
+                    <li>Throughput up to 1,000 cycles per hour</li>
+                    <li>Supports standard and mixed pallet patterns</li>
+                    <li>Vision-assisted layer verification to reduce stacking errors</li>
+                </ul>
+                <a href="#contact" class="service-link">Get in touch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 02 — Robotic Welding -->
+    <section class="service-block">
+        <div class="container service-block-inner">
+            <div class="service-visual fade-up">
+                <div class="service-media-frame">
+                    <!-- <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
+                        <source src="videos/welding-video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video> -->
+                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/v1775566571/welding-video_kpdksf.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="service-text fade-up">
+                <h2>Robotic Welding</h2>
+                <p>Our robotic welding cells deliver consistent MIG, TIG, arc, and spot welding with reduced operator dependency. Systems are configured with seam tracking and adaptive tuning for real-world part variation.</p>
+                <ul class="service-benefits">
+                    <li>Repeatability of ±0.10 mm (robot dependent)</li>
+                    <li>Seam tracking using touch sensing or vision</li>
+                    <li>Consistent weld quality with reduced rework</li>
+                </ul>
+                <a href="#contact" class="service-link">Get in touch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 03 — Robotic Painting -->
+    <section class="service-block">
+        <div class="container service-block-inner">
+            <div class="service-visual fade-up">
+                <div class="service-media-frame">
+                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/v1775566551/painting_microf.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="service-text fade-up">
+                <h2>Robotic Painting</h2>
+                <p>Hexon's robotic painting systems ensure controlled spray application, uniform coating, and reduced manual exposure. Suitable for automotive components, fabricated parts, and appliances.</p>
+                <ul class="service-benefits">
+                    <li>20% reduction in paint consumption vs manual processes</li>
+                    <li>Uniform coating thickness across batches</li>
+                    <li>Safety-compliant system design for hazardous environments</li>
+                </ul>
+                <a href="#contact" class="service-link">Get in touch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 04 — Robotic Inspection -->
+    <section class="service-block">
+        <div class="container service-block-inner">
+            <div class="service-visual fade-up">
+                <div class="service-media-frame">
+                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/v1775566593/inspection_d2bij7.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="service-text fade-up">
+                <h2>Robotic Inspection</h2>
+                <p>Vision-guided robotic inspection systems perform in-line quality checks including dimensional validation and surface inspection, without interrupting production flow.</p>
+                <ul class="service-benefits">
+                    <li>Detects defects down to 0.2 mm</li>
+                    <li>Real-time pass/fail sorting with data logging</li>
+                    <li>Integrates with existing conveyor lines</li>
+                </ul>
+                <a href="#contact" class="service-link">Get in touch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 05 — Pick & Place -->
+    <section class="service-block">
+        <div class="container service-block-inner">
+            <div class="service-visual fade-up">
+                <div class="service-media-frame">
+                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/v1775566560/pickplace_veupni.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="service-text fade-up">
+                <h2>Pick &amp; Place</h2>
+                <p>High-speed delta and SCARA robots handle pick-and-place and light assembly tasks across FMCG, pharma, and electronics. Designed for reliability in continuous operations.</p>
+                <ul class="service-benefits">
+                    <li>Up to 120 picks per minute</li>
+                    <li>Gentle handling with vacuum or servo grippers</li>
+                    <li>Tooling changeover within 15 minutes</li>
+                </ul>
+                <a href="#contact" class="service-link">Get in touch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Service 06 — Machine Tending -->
+    <section class="service-block">
+        <div class="container service-block-inner">
+            <div class="service-visual fade-up">
+                <div class="service-media-frame">
+                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
+                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/v1775566511/machine-tending_n0sx4f.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+            </div>
+            <div class="service-text fade-up">
+                <h2>Machine Tending</h2>
+                <p>Robotic machine tending systems automate loading and unloading of CNCs and presses, improving machine utilization and reducing manual intervention.</p>
+                <ul class="service-benefits">
+                    <li>25% improvement in machine utilization</li>
+                    <li>Enables extended unattended operation</li>
+                    <li>Integrated safety systems (area scanners, guarding)</li>
+                </ul>
+                <a href="#contact" class="service-link">Get in touch &rarr;</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== INDUSTRIES MARQUEE ==================== -->
+    <section id="industries">
+        <div class="container text-center">
+            <span class="label">INDUSTRIES WE SERVE</span>
+        </div>
+        <div class="marquee-wrapper">
+            <div class="marquee-content">
+                <div class="marquee-pill">Automotive</div>
+                <div class="marquee-pill">Food &amp; Beverage</div>
+                <div class="marquee-pill">Pharmaceuticals</div>
+                <div class="marquee-pill">Electronics</div>
+                <div class="marquee-pill">Metal Fabrication</div>
+                <div class="marquee-pill">Logistics &amp; Warehousing</div>
+                <div class="marquee-pill">Plastics &amp; Rubber</div>
+                <div class="marquee-pill">FMCG</div>
+                <!-- Duplicate for seamless loop -->
+                <div class="marquee-pill">Automotive</div>
+                <div class="marquee-pill">Food &amp; Beverage</div>
+                <div class="marquee-pill">Pharmaceuticals</div>
+                <div class="marquee-pill">Electronics</div>
+                <div class="marquee-pill">Metal Fabrication</div>
+                <div class="marquee-pill">Logistics &amp; Warehousing</div>
+                <div class="marquee-pill">Plastics &amp; Rubber</div>
+                <div class="marquee-pill">FMCG</div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== CONTACT ==================== -->
+    <section id="contact" class="contact-section">
+        <div class="contact-left">
+            <div class="fade-up">
+                <h2>Let's Build Something Together.</h2>
+                <p>Tell us about your automation challenge. Our engineering team will get back to you within 24 hours.</p>
+
+                <ul class="contact-details">
+                    <li><i class="fa-solid fa-location-dot"></i> Ahmedabad, Gujarat, India</li>
+                    <li><i class="fa-solid fa-phone"></i> +91 90990 37663</li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:sales@hexonrobotics.com">sales@hexonrobotics.com</a></li>
+                </ul>
+
+                <div class="contact-socials">
+                    <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <div class="contact-right">
+            <div class="fade-up">
+                <div id="form-container">
+                    <h3>Send Us a Message</h3>
+
+                    <form id="contact-form">
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Full Name</label>
+                                <input type="text" name="name" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Company Name</label>
+                                <input type="text" name="company" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label>Email Address</label>
+                                <input type="email" name="email" class="form-control" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Phone Number</label>
+                                <input type="tel" name="phone" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Industry</label>
+                            <select name="industry" class="form-control" required>
+                                <option value="" disabled selected>Select Industry</option>
+                                <option value="Automotive">Automotive</option>
+                                <option value="Food & Beverage">Food &amp; Beverage</option>
+                                <option value="Pharmaceuticals">Pharmaceuticals</option>
+                                <option value="Electronics">Electronics</option>
+                                <option value="Metal Fabrication">Metal Fabrication</option>
+                                <option value="Logistics & Warehousing">Logistics &amp; Warehousing</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Service of Interest</label>
+                            <select name="service" class="form-control" required>
+                                <option value="" disabled selected>Select Service</option>
+                                <option value="Robotic Palletizing">Robotic Palletizing</option>
+                                <option value="Robotic Welding">Robotic Welding</option>
+                                <option value="Robotic Painting">Robotic Painting</option>
+                                <option value="Robotic Inspection">Robotic Inspection</option>
+                                <option value="Pick & Place">Pick &amp; Place</option>
+                                <option value="Machine Tending">Machine Tending</option>
+                                <option value="Not Sure Yet">Not Sure Yet</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Message</label>
+                            <textarea name="message" class="form-control" rows="5" required></textarea>
+                        </div>
+                        <!-- Replace sales@hexonrobotics.com with actual email if needed -->
+                        <button type="submit" class="btn-submit" id="submit-btn">SEND ENQUIRY</button>
+                        <div class="error-banner" id="form-error">Something went wrong. Please email us directly at <a href="mailto:sales@hexonrobotics.com">sales@hexonrobotics.com</a></div>
+                    </form>
+                </div>
+
+                <div id="success-state" class="form-message">
+                    <i class="fa-solid fa-circle-check"></i>
+                    <h4>Message Sent!</h4>
+                    <p>We'll be in touch within 24 hours.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ==================== FOOTER ==================== -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-col">
+                    <img src="images/logo.png" alt="Hexon Robotics" style="height: 60px; width:auto; display:block; margin-bottom:4px;">
+                    <!-- <p>Precise Automation.</p> -->
+                    <p>&copy; 2026 Hexon Robotics. All Rights Reserved.</p>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About Us</a></li>
+                        <li><a href="#services">Services</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <ul class="footer-links">
+                        <li><a href="#services">Robotic Palletizing</a></li>
+                        <li><a href="#services">Robotic Welding</a></li>
+                        <li><a href="#services">Robotic Painting</a></li>
+                        <li><a href="#services">Robotic Inspection</a></li>
+                        <li><a href="#services">Pick &amp; Place</a></li>
+                        <li><a href="#services">Machine Tending</a></li>
+                    </ul>
+                </div>
+                <div class="footer-col">
+                    <h4>Get in Touch</h4>
+                    <p style="margin-top:0; margin-bottom:8px;">Ahmedabad, Gujarat, India</p>
+                    <p style="margin-top:0; margin-bottom:8px;">+91 90990 37663</p>
+                    <p style="margin-top:0; margin-bottom:20px;"><a href="mailto:sales@hexonrobotics.com">sales@hexonrobotics.com</a></p>
+                    <div class="contact-socials">
+                        <a href="#"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer-bottom-line"></div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+
+            // 1. Sticky Navbar
+            const navbar = document.getElementById('navbar');
+            window.addEventListener('scroll', () => {
+                navbar.classList.toggle('scrolled', window.scrollY > 80);
+            });
+
+            // 2. Mobile Menu Toggle
+            const hamburger   = document.getElementById('hamburger');
+            const mobileMenu  = document.getElementById('mobile-menu');
+            const mobileLinks = document.querySelectorAll('.mobile-link');
+
+            function toggleMenu() {
+                mobileMenu.classList.toggle('open');
+                const isOpen = mobileMenu.classList.contains('open');
+                hamburger.innerHTML = isOpen
+                    ? '<i class="fa-solid fa-xmark"></i>'
+                    : '<i class="fa-solid fa-bars"></i>';
+            }
+
+            if (hamburger) hamburger.addEventListener('click', toggleMenu);
+            mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+            // 3. Scroll Fade-Up Animations
+            const fadeElements = document.querySelectorAll('.fade-up');
+            const observer = new IntersectionObserver((entries, obs) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        obs.unobserve(entry.target);
+                    }
+                });
+            }, { root: null, rootMargin: '0px', threshold: 0.15 });
+
+            fadeElements.forEach(el => observer.observe(el));
+
+            // 4. Active Nav Link on Scroll
+            const sections = document.querySelectorAll('section[id]');
+            const navLinks  = document.querySelectorAll('.nav-links .nav-link');
+
+            window.addEventListener('scroll', () => {
+                let current = '';
+                sections.forEach(section => {
+                    if (pageYOffset >= section.offsetTop - 200) {
+                        current = section.getAttribute('id');
+                    }
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href').includes(current)) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+
+            // 5. Form Submission
+            const form          = document.getElementById('contact-form');
+            const formContainer = document.getElementById('form-container');
+            const successState  = document.getElementById('success-state');
+            const errorBanner   = document.getElementById('form-error');
+            const submitBtn     = document.getElementById('submit-btn');
+
+            if (form) {
+                form.addEventListener('submit', async (e) => {
+                    e.preventDefault();
+                    submitBtn.textContent  = 'SENDING...';
+                    submitBtn.style.opacity   = '0.7';
+                    submitBtn.disabled        = true;
+                    errorBanner.style.display = 'none';
+
+                    try {
+                        const response = await fetch('https://formsubmit.co/ajax/sales@hexonrobotics.com', {
+                            method: 'POST',
+                            body: new FormData(form)
+                        });
+
+                        if (response.ok) {
+                            formContainer.style.display = 'none';
+                            successState.classList.add('success');
+                        } else {
+                            throw new Error('Network response was not ok.');
+                        }
+                    } catch (error) {
+                        errorBanner.style.display = 'block';
+                        submitBtn.textContent      = 'SEND ENQUIRY';
+                        submitBtn.style.opacity    = '1';
+                        submitBtn.disabled         = false;
+                    }
+                });
+            }
+        });
+    </script>
+</body>
+</html>
