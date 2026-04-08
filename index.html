@@ -66,6 +66,8 @@
         .text-center { text-align: center; }
         .text-orange { color: var(--orange); }
         .text-grey { color: var(--text-grey); }
+        .mobile-break { display: none; }
+        .desktop-break { display: inline; }
 
         .section-padding { padding: 100px 0; }
 
@@ -554,7 +556,7 @@
         .why-choose { background: var(--bg-dark); }
 
         .why-choose h2 {
-            font-size: clamp(36px, 5vw, 52px);
+            font-size: clamp(38px, 5vw, 54px);
             margin-bottom: 60px;
         }
 
@@ -628,7 +630,7 @@
         .process { background: var(--bg-black); }
 
         .process h2 {
-            font-size: clamp(36px, 5vw, 52px);
+            font-size: clamp(38px, 5vw, 54px);
             margin-bottom: 60px;
         }
 
@@ -684,12 +686,12 @@
         }
 
         .timeline-step h3 {
-            font-size: 18px;
+            font-size: 20px;
             margin-bottom: 8px;
         }
 
         .timeline-step p {
-            font-size: 13px;
+            font-size: 16px;
             color: var(--text-grey);
         }
 
@@ -697,8 +699,8 @@
         .services-detail-hero {
             background: var(--bg-section);
             text-align: center;
-            padding-top: 140px;
-            padding-bottom: 60px;
+            padding-top: 100px;
+            padding-bottom: 40px;
         }
 
         .services-detail-hero h1 {
@@ -711,7 +713,7 @@
             color: var(--text-grey);
         }
 
-        .service-block { padding: 100px 0; }
+        .service-block { padding: 70px 0; }
 
         .service-block:nth-child(odd)  { background: var(--bg-section); }
         .service-block:nth-child(even) { background: var(--bg-dark); }
@@ -873,6 +875,8 @@
             font-size: 20px;
             transition: color 0.3s;
         }
+
+        .contact-socials a i { color: inherit; }
 
         .contact-socials a:hover { color: var(--orange-deep); }
 
@@ -1048,6 +1052,20 @@
             .nav-links  { display: none; }
             .hamburger  { display: block; }
 
+            .mobile-break { display: inline; }
+            .desktop-break { display: none; }
+
+            .value-band {
+                height: auto;
+                padding: 48px 24px;
+            }
+            .value-band h2 { font-size: 36px; }
+            .value-band p  { font-size: 16px; }
+
+            .process .container { padding: 0 24px; }
+            .process.section-padding { padding: 80px 0; }
+            .timeline-step:hover .step-circle { transform: translateX(-50%); }
+
             .hero-buttons       { flex-direction: column; align-items: center; }
             .btn                { width: 100%; max-width: 100%; }
 
@@ -1056,13 +1074,16 @@
             .about-grid         { grid-template-columns: 1fr; }
             .about-visual       { order: 0; min-height: 260px; }
 
-            .timeline           { flex-direction: column; padding-left: 24px; border-left: 2px dashed var(--orange); gap: 40px; }
+            .timeline           { flex-direction: column; margin-left: 36px; padding-left: 36px; border-left: 2px dashed var(--orange); gap: 0; padding-bottom: 0; margin-top: 0; }
             .timeline::before   { display: none; }
-            .timeline-step      { text-align: left; display: flex; flex-direction: column; align-items: flex-start; }
-            .step-circle        { margin: 0 0 16px 0; position: absolute; left: -24px; transform: translateX(-50%); }
+            .timeline-step      { text-align: left; display: flex; flex-direction: column; align-items: flex-start; min-height: 120px; position: relative; }
+            .step-circle        { margin: 0 0 16px 0; position: absolute; left: -36px; top: -13px; transform: translateX(-50%); }
+            .timeline-step:last-child::after { content: ''; position: absolute; left: -38px; top: 35px; bottom: -1px; width: 6px; background: var(--bg-black); }
 
             .service-block-inner                                    { grid-template-columns: 1fr; gap: 40px; }
             .service-block:nth-child(even) .service-block-inner    { direction: ltr; }
+            .service-block:nth-child(even) .service-text           { text-align: left; }
+            .service-block:nth-child(even) .service-benefits li    { justify-content: flex-start; flex-direction: row; }
 
             .form-row { flex-direction: column; gap: 0; }
         }
@@ -1116,7 +1137,7 @@
 
     <!-- ==================== VALUE BAND ==================== -->
     <section class="value-band fade-up">
-        <h2>END-TO-END AUTOMATION SOLUTIONS</h2>
+        <h2>END-TO-END<span class="mobile-break"><br></span> AUTOMATION SOLUTIONS</h2>
         <p>From concept to commissioning — Hexon delivers robotic systems that transform manufacturing floors.</p>
     </section>
 
@@ -1270,7 +1291,7 @@
             <div class="timeline">
                 <div class="timeline-step fade-up">
                     <div class="step-circle">1</div>
-                    <h3>Consultation &amp; Analysis</h3>
+                    <h3>Consultation &amp;<span class="desktop-break"><br></span> Analysis</h3>
                     <p>We audit your process, understand your constraints, and define the automation scope.</p>
                 </div>
                 <div class="timeline-step fade-up" style="transition-delay:0.1s;">
@@ -1290,7 +1311,7 @@
                 </div>
                 <div class="timeline-step fade-up" style="transition-delay:0.4s;">
                     <div class="step-circle">5</div>
-                    <h3>Training &amp; AMC Support</h3>
+                    <h3>Training &amp;<span class="desktop-break"><br></span> AMC Support</h3>
                     <p>Full operator training and ongoing annual maintenance contract.</p>
                 </div>
             </div>
@@ -1492,7 +1513,7 @@
                 <ul class="contact-details">
                     <li><i class="fa-solid fa-location-dot"></i> Ahmedabad, Gujarat, India</li>
                     <li><i class="fa-solid fa-phone"></i> +91 90990 37663</li>
-                    <li><i class="fa-solid fa-envelope"></i> <a href="mailto:sales@hexonrobotics.com">sales@hexonrobotics.com</a></li>
+                    <li><i class="fa-solid fa-envelope"></i> <a href="/cdn-cgi/l/email-protection#4f3c2e232a3c0f272a3720213d202d203b262c3c612c2022"><span class="__cf_email__" data-cfemail="fd8e9c91988ebd95988592938f929f9289949e8ed39e9290">[email&#160;protected]</span></a></li>
                 </ul>
 
                 <div class="contact-socials">
@@ -1561,7 +1582,7 @@
                         </div>
                         <!-- Replace sales@hexonrobotics.com with actual email if needed -->
                         <button type="submit" class="btn-submit" id="submit-btn">SEND ENQUIRY</button>
-                        <div class="error-banner" id="form-error">Something went wrong. Please email us directly at <a href="mailto:sales@hexonrobotics.com">sales@hexonrobotics.com</a></div>
+                        <div class="error-banner" id="form-error">Something went wrong. Please email us directly at <a href="/cdn-cgi/l/email-protection#ddaebcb1b8ae9db5b8a5b2b3afb2bfb2a9b4beaef3beb2b0"><span class="__cf_email__" data-cfemail="cdbeaca1a8be8da5a8b5a2a3bfa2afa2b9a4aebee3aea2a0">[email&#160;protected]</span></a></div>
                     </form>
                 </div>
 
@@ -1579,7 +1600,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
-                    <img src="images/logo.png" alt="Hexon Robotics" style="height: 60px; width:auto; display:block; margin-bottom:4px;">
+                    <img src="images/logo.png" alt="Hexon Robotics" style="height: 60px; width:auto; max-width: 160px; display:block; margin-bottom:4px;">
                     <!-- <p>Precise Automation.</p> -->
                     <p>&copy; 2026 Hexon Robotics. All Rights Reserved.</p>
                 </div>
@@ -1607,7 +1628,7 @@
                     <h4>Get in Touch</h4>
                     <p style="margin-top:0; margin-bottom:8px;">Ahmedabad, Gujarat, India</p>
                     <p style="margin-top:0; margin-bottom:8px;">+91 90990 37663</p>
-                    <p style="margin-top:0; margin-bottom:20px;"><a href="mailto:sales@hexonrobotics.com">sales@hexonrobotics.com</a></p>
+                    <p style="margin-top:0; margin-bottom:20px;"><a href="/cdn-cgi/l/email-protection#d2a1b3beb7a192bab7aabdbca0bdb0bda6bbb1a1fcb1bdbf"><span class="__cf_email__" data-cfemail="4033212c2533002825382f2e322f222f342923336e232f2d">[email&#160;protected]</span></a></p>
                     <div class="contact-socials">
                         <a href="#"><i class="fa-brands fa-linkedin"></i></a>
                         <a href="#"><i class="fa-brands fa-youtube"></i></a>
@@ -1619,7 +1640,7 @@
         <div class="footer-bottom-line"></div>
     </footer>
 
-    <script>
+    <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
         document.addEventListener('DOMContentLoaded', () => {
 
             // 1. Sticky Navbar
@@ -1699,8 +1720,7 @@
 
                         if (response.ok) {
                             formContainer.style.display = 'none';
-                            successState.classList.add('success');
-                        } else {
+                            successState.classList.add('success');                        } else {
                             throw new Error('Network response was not ok.');
                         }
                     } catch (error) {
