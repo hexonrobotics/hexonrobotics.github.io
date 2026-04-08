@@ -948,9 +948,15 @@
             display: none;
             text-align: center;
             padding: 40px 0;
+            min-height: 530px; /* Reserves the same vertical space as the form */
         }
 
-        .form-message.success { display: block; }
+        .form-message.success { 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
 
         .form-message i {
             font-size: 60px;
