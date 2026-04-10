@@ -768,8 +768,6 @@
             width: 100%;
             height: auto;
             background: var(--bg-black);
-            /* border: 3px solid #000;
-            border-radius: var(--radius); */
             display: flex;
             align-items: center;
             justify-content: center;
@@ -948,7 +946,7 @@
             display: none;
             text-align: center;
             padding: 40px 0;
-            min-height: 530px; /* Reserves the same vertical space as the form */
+            min-height: 530px;
         }
 
         .form-message.success { 
@@ -1103,7 +1101,6 @@
 </head>
 <body>
 
-    <!-- ==================== NAVBAR ==================== -->
     <nav class="navbar" id="navbar">
         <div class="container nav-container">
             <a href="#home" class="brand-logo">
@@ -1121,7 +1118,6 @@
         </div>
     </nav>
 
-    <!-- Mobile overlay -->
     <div class="mobile-menu-overlay" id="mobile-menu">
         <a href="#home"     class="nav-link mobile-link">Home</a>
         <a href="#about"    class="nav-link mobile-link">About</a>
@@ -1129,7 +1125,6 @@
         <a href="#contact"  class="nav-link mobile-link">Contact</a>
     </div>
 
-    <!-- ==================== HERO ==================== -->
     <section id="home" class="hero bg-hex">
         <div class="container hero-content fade-up">
             <h1>AUTOMATE YOUR <span>FUTURE</span></h1>
@@ -1141,13 +1136,11 @@
         </div>
     </section>
 
-    <!-- ==================== VALUE BAND ==================== -->
     <section class="value-band fade-up">
         <h2>END-TO-END<span class="mobile-break"><br></span> AUTOMATION SOLUTIONS</h2>
         <p>From concept to commissioning — Hexon delivers robotic systems that transform manufacturing floors.</p>
     </section>
 
-    <!-- ==================== SERVICES OVERVIEW ==================== -->
     <section class="services-overview section-padding" id="services-overview">
         <div class="container text-center">
             <span class="label fade-up">WHAT WE OFFER</span>
@@ -1156,42 +1149,42 @@
             <div class="services-grid">
                 <div class="service-card fade-up" style="transition-delay:0.1s;">
                     <div class="service-card-img">
-                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/v1775569258/palletizing-robot_dlaqhk.jpg" alt="palletizing-robot">
+                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_600/v1775569258/palletizing-robot_dlaqhk.jpg" alt="palletizing-robot" loading="lazy">
                     </div>
                     <h3>Robotic Palletizing</h3>
                     <p>Automated stacking and pallet building for high-throughput warehousing and production lines.</p>
                 </div>
                 <div class="service-card fade-up" style="transition-delay:0.2s;">
                     <div class="service-card-img">
-                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/v1775569261/welding-robot_d4cffj.png" alt="welding-robot">
+                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_600/v1775569261/welding-robot_d4cffj.png" alt="welding-robot" loading="lazy">
                     </div>
                     <h3>Robotic Welding</h3>
                     <p>Precision arc and spot welding robots for consistent, high-speed, zero-defect fabrication.</p>
                 </div>
                 <div class="service-card fade-up" style="transition-delay:0.3s;">
                     <div class="service-card-img">
-                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/v1775569260/painting-robot_dqyops.png" alt="painting-robot">
+                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_600/v1775569260/painting-robot_dqyops.png" alt="painting-robot" loading="lazy">
                     </div>
                     <h3>Robotic Painting</h3>
                     <p>Precise spray applications for consistent, high-quality coatings in automotive and industrial use.</p>
                 </div>
                 <div class="service-card fade-up" style="transition-delay:0.4s;">
                     <div class="service-card-img">
-                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/v1775569258/inspection-robot_ermexw.png" alt="inspection-robot">
+                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_600/v1775569258/inspection-robot_ermexw.png" alt="inspection-robot" loading="lazy">
                     </div>
                     <h3>Robotic Inspection</h3>
                     <p>Vision-guided quality inspection systems for real-time defect detection and measurement.</p>
                 </div>
                 <div class="service-card fade-up" style="transition-delay:0.5s;">
                     <div class="service-card-img">
-                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/v1775569262/pick-place_d5ccqw.png" alt="pick-and-place">
+                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_600/v1775569262/pick-place_d5ccqw.png" alt="pick-and-place" loading="lazy">
                     </div>
                     <h3>Pick &amp; Place</h3>
                     <p>High-speed pick and place robots for assembly, sorting, and packaging applications.</p>
                 </div>
                 <div class="service-card fade-up" style="transition-delay:0.6s;">
                     <div class="service-card-img">
-                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/v1775569256/machine-tending_cbdrnh.png" alt="machine-tending">
+                        <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_600/v1775569256/machine-tending_cbdrnh.png" alt="machine-tending" loading="lazy">
                     </div>
                     <h3>Machine Tending</h3>
                     <p>Robotic loading/unloading for CNC, press, and injection moulding machines — zero idle time.</p>
@@ -1202,12 +1195,11 @@
         </div>
     </section>
 
-    <!-- ==================== ABOUT HERO ==================== -->
     <section id="about" class="about-hero">
         <div class="container about-grid">
             <div class="about-visual fade-up">
                 <div class="media-frame-tall">
-                    <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto/f_auto/v1775627214/backbone-mfg_tuguve.png" alt="backbone-mfg">
+                    <img src="https://res.cloudinary.com/dlybodlmf/image/upload/q_auto,f_auto,w_800/v1775627214/backbone-mfg_tuguve.png" alt="backbone-mfg" loading="lazy">
                 </div>
             </div>
             <div class="about-content fade-up">
@@ -1218,10 +1210,10 @@
         </div>
     </section>
 
-    <!-- ==================== WHY CHOOSE ==================== -->
     <section class="why-choose section-padding">
         <div class="container">
-            <h2 class="text-center fade-up">Why Choose Hexon</h2>
+            <span class="label text-center fade-up">Why Choose Hexon</span>
+            <h2 class="text-center fade-up">Engineered For Optimization</h2>
             <div class="reasons-list">
                 <div class="reason-item fade-up">
                     <div class="reason-number">01</div>
@@ -1262,7 +1254,6 @@
         </div>
     </section>
 
-    <!-- ==================== SPECIALITIES ==================== -->
     <section class="specialities">
         <div class="container">
             <div class="specialities-grid">
@@ -1290,10 +1281,10 @@
         </div>
     </section>
 
-    <!-- ==================== PROCESS ==================== -->
     <section class="process section-padding">
         <div class="container">
-            <h2 class="text-center fade-up">How We Work</h2>
+            <span class="label text-center fade-up">How We Work</span>
+            <h2 class="text-center fade-up">The Hexon Method</h2>
             <div class="timeline">
                 <div class="timeline-step fade-up">
                     <div class="step-circle">1</div>
@@ -1324,7 +1315,6 @@
         </div>
     </section>
 
-    <!-- ==================== SERVICES DETAIL HERO ==================== -->
     <section id="services" class="services-detail-hero">
         <div class="container fade-up">
             <span class="label">SEE IT IN ACTION</span>
@@ -1333,13 +1323,12 @@
         </div>
     </section>
 
-    <!-- Service 01 — Robotic Palletizing -->
     <section class="service-block">
         <div class="container service-block-inner">
             <div class="service-visual fade-up">
                 <div class="service-media-frame">
-                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto/f_auto/v1775569534/palletizing_mjyowj.mp4" type="video/mp4">
+                    <video width="100%" style="max-width: 800px; display: block;" loop muted playsinline preload="none" class="lazy-video" poster="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800,so_0/v1775569534/palletizing_mjyowj.jpg">
+                        <source data-src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800/v1775569534/palletizing_mjyowj.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -1357,17 +1346,12 @@
         </div>
     </section>
 
-    <!-- Service 02 — Robotic Welding -->
     <section class="service-block">
         <div class="container service-block-inner">
             <div class="service-visual fade-up">
                 <div class="service-media-frame">
-                    <!-- <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="videos/welding-video.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
-                    </video> -->
-                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto/f_auto/v1775566571/welding-video_kpdksf.mp4" type="video/mp4">
+                    <video width="100%" style="max-width: 800px; display: block;" loop muted playsinline preload="none" class="lazy-video" poster="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800,so_0/v1775566571/welding-video_kpdksf.jpg">
+                        <source data-src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800/v1775566571/welding-video_kpdksf.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -1385,13 +1369,12 @@
         </div>
     </section>
 
-    <!-- Service 03 — Robotic Painting -->
     <section class="service-block">
         <div class="container service-block-inner">
             <div class="service-visual fade-up">
                 <div class="service-media-frame">
-                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto/f_auto/v1775566551/painting_microf.mp4" type="video/mp4">
+                    <video width="100%" style="max-width: 800px; display: block;" loop muted playsinline preload="none" class="lazy-video" poster="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800,so_0/v1775566551/painting_microf.jpg">
+                        <source data-src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800/v1775566551/painting_microf.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -1409,13 +1392,12 @@
         </div>
     </section>
 
-    <!-- Service 04 — Robotic Inspection -->
     <section class="service-block">
         <div class="container service-block-inner">
             <div class="service-visual fade-up">
                 <div class="service-media-frame">
-                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto/f_auto/v1775566593/inspection_d2bij7.mp4" type="video/mp4">
+                    <video width="100%" style="max-width: 800px; display: block;" loop muted playsinline preload="none" class="lazy-video" poster="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800,so_0/v1775566593/inspection_d2bij7.jpg">
+                        <source data-src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800/v1775566593/inspection_d2bij7.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -1433,13 +1415,12 @@
         </div>
     </section>
 
-    <!-- Service 05 — Pick & Place -->
     <section class="service-block">
         <div class="container service-block-inner">
             <div class="service-visual fade-up">
                 <div class="service-media-frame">
-                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto/f_auto/v1775566560/pickplace_veupni.mp4" type="video/mp4">
+                    <video width="100%" style="max-width: 800px; display: block;" loop muted playsinline preload="none" class="lazy-video" poster="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800,so_0/v1775566560/pickplace_veupni.jpg">
+                        <source data-src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800/v1775566560/pickplace_veupni.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -1457,13 +1438,12 @@
         </div>
     </section>
 
-    <!-- Service 06 — Machine Tending -->
     <section class="service-block">
         <div class="container service-block-inner">
             <div class="service-visual fade-up">
                 <div class="service-media-frame">
-                    <video width="100%" style="max-width: 800px; display: block;" autoplay loop muted playsinline>
-                        <source src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto/f_auto/v1775566511/machine-tending_n0sx4f.mp4" type="video/mp4">
+                    <video width="100%" style="max-width: 800px; display: block;" loop muted playsinline preload="none" class="lazy-video" poster="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800,so_0/v1775566511/machine-tending_n0sx4f.jpg">
+                        <source data-src="https://res.cloudinary.com/dlybodlmf/video/upload/q_auto,f_auto,w_800/v1775566511/machine-tending_n0sx4f.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 </div>
@@ -1481,7 +1461,6 @@
         </div>
     </section>
 
-    <!-- ==================== INDUSTRIES MARQUEE ==================== -->
     <section id="industries">
         <div class="container text-center">
             <span class="label">INDUSTRIES WE SERVE</span>
@@ -1496,7 +1475,6 @@
                 <div class="marquee-pill">Logistics &amp; Warehousing</div>
                 <div class="marquee-pill">Plastics &amp; Rubber</div>
                 <div class="marquee-pill">FMCG</div>
-                <!-- Duplicate for seamless loop -->
                 <div class="marquee-pill">Automotive</div>
                 <div class="marquee-pill">Food &amp; Beverage</div>
                 <div class="marquee-pill">Pharmaceuticals</div>
@@ -1509,7 +1487,6 @@
         </div>
     </section>
 
-    <!-- ==================== CONTACT ==================== -->
     <section id="contact" class="contact-section">
         <div class="contact-left">
             <div class="fade-up">
@@ -1586,7 +1563,6 @@
                             <label>Message</label>
                             <textarea name="message" class="form-control" rows="5" required></textarea>
                         </div>
-                        <!-- Replace sales@hexonrobotics.com with actual email if needed -->
                         <button type="submit" class="btn-submit" id="submit-btn">SEND ENQUIRY</button>
                         <div class="error-banner" id="form-error">Something went wrong. Please email us directly at <a href="/cdn-cgi/l/email-protection#ddaebcb1b8ae9db5b8a5b2b3afb2bfb2a9b4beaef3beb2b0"><span class="__cf_email__" data-cfemail="cdbeaca1a8be8da5a8b5a2a3bfa2afa2b9a4aebee3aea2a0">[email&#160;protected]</span></a></div>
                     </form>
@@ -1601,13 +1577,11 @@
         </div>
     </section>
 
-    <!-- ==================== FOOTER ==================== -->
     <footer class="footer">
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-col">
                     <img src="images/logo.png" alt="Hexon Robotics" style="width: 100%; max-width: 200px; height: auto; display: block; margin-bottom: 4px;">
-                    <!-- <p>Precise Automation.</p> -->
                     <p>&copy; 2026 Hexon Robotics. All Rights Reserved.</p>
                 </div>
                 <div class="footer-col">
@@ -1737,6 +1711,27 @@
                     }
                 });
             }
+
+            // 6. Lazy Load Videos
+            const lazyVideos = document.querySelectorAll('.lazy-video');
+            const videoObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const video = entry.target;
+                        const source = video.querySelector('source');
+                        if (source.hasAttribute('data-src')) {
+                            source.src = source.getAttribute('data-src');
+                            video.load();
+                            video.play();
+                            source.removeAttribute('data-src');
+                        }
+                        observer.unobserve(video);
+                    }
+                });
+            }, { rootMargin: '0px 0px 200px 0px' });
+
+            lazyVideos.forEach(video => videoObserver.observe(video));
+
         });
     </script>
 </body>
